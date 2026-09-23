@@ -57,10 +57,15 @@ class Settings(BaseSettings):
 
     @field_validator("public_api_base", mode="before")
     @classmethod
-    def public_base_from_render(cls, value: str) -> str:
+    def public_base_from_host(cls, value: str) -> str:
         external = os.environ.get("RENDER_EXTERNAL_URL", "").rstrip("/")
         if external:
             return external
+        koyeb = os.environ.get("KOYEB_PUBLIC_DOMAIN", "").strip().rstrip("/")
+        if koyeb.startswith("https://") or koyeb.startswith("http://"):
+            return koyeb
+        if koyeb:
+            return "https://" + koyeb
         return value
 
 

@@ -1,0 +1,9 @@
+.git
+backend/venv
+backend/.env
+backend/*.db
+**/node_modules
+web/dist
+mobile
+demo
+uploads
