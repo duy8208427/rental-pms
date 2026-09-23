@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Rental PMS",
+    "slug": "rental-pms",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "rentalpms",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Cho phép chọn ảnh chụp màn hình để gửi góp ý.",
+          "cameraPermission": "Cho phép chụp ảnh để gửi góp ý."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -1,0 +1,29 @@
+databases:
+  - name: rental-pms-db
+    plan: free
+    databaseName: rental_pms
+
+services:
+  - type: web
+    name: rental-pms
+    runtime: python
+    plan: free
+    buildCommand: >-
+      curl -fsSL https://nodejs.org/dist/v20.18.1/node-v20.18.1-linux-x64.tar.xz | tar -xJ -C /tmp
+      && export PATH="/tmp/node-v20.18.1-linux-x64/bin:$PATH"
+      && cd web && npm install && npm run build
+      && cd ../backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SERVE_WEB
+        value: "1"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: rental-pms-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PAYMENT_MODE
+        value: sandbox
+      - key: PYTHON_VERSION
+        value: "3.12.8"
